@@ -5,13 +5,17 @@
 -- Format on save and linters
 return {
   'nvimtools/none-ls.nvim',
+  {
+    'mg979/vim-visual-multi',
+    branch = 'master',
+  },
   dependencies = {
     'nvimtools/none-ls-extras.nvim',
     'jayp0521/mason-null-ls.nvim', -- ensure dependencies are installed
   },
   config = function()
     local null_ls = require 'null-ls'
-    local formatting = null_ls.builtins.formatting   -- to setup formatters
+    local formatting = null_ls.builtins.formatting -- to setup formatters
     local diagnostics = null_ls.builtins.diagnostics -- to setup linters
 
     -- list of formatters & linters for mason to install

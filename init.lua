@@ -490,6 +490,8 @@ require('lazy').setup({
       { 'mason-org/mason.nvim', opts = {} },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim',    opts = {} },
@@ -688,7 +690,22 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
-
+        pylsp = {
+          settings = {
+            pylsp = {
+              plugins = {
+                pyflakes = { enabled = false },
+                pycodestyle = { enabled = false },
+                autopep8 = { enabled = false },
+                yapf = { enabled = false },
+                mccabe = { enabled = false },
+                pylsp_mypy = { enabled = false },
+                pylsp_black = { enabled = false },
+                pylsp_isort = { enabled = false },
+              },
+            },
+          },
+        },
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -700,6 +717,50 @@ require('lazy').setup({
               },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               -- diagnostics = { disable = { 'missing-fields' } },
+            },
+          },
+        },
+
+        -- HTML
+        html = {
+          capabilities = capabilities,
+          settings = {
+            html = {
+              format = { wrapLineLength = 120 },
+              validate = { scripts = true, styles = true },
+            },
+          },
+        },
+
+        -- CSS
+        cssls = {
+          capabilities = capabilities,
+          settings = {
+            css = {
+              validate = true,
+              lint = {
+                unknownAtRules = 'ignore',
+              },
+            },
+            scss = { validate = true },
+            less = { validate = true },
+          },
+        },
+
+        -- JavaScript / TypeScript
+        ts_ls = {
+          capabilities = capabilities,
+          settings = {
+            javascript = {
+              format = { enable = true },
+              inlayHints = { includeInlayParameterNameHints = 'all' },
+            },
+            typescript = {
+              format = { enable = true },
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayFunctionLikeReturnTypeHints = true,
+              },
             },
           },
         },
